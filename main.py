@@ -8,6 +8,24 @@ def create_files():
             with open(file, "w") as f:
                 f.write("0")
 
+def deleteEntry():
+    # List all entries
+    entries = os.listdir('.')
+    print("Available entries:")
+    for index, entry in enumerate(entries):
+        if entry.endswith('.txt'):
+            print(f"{index + 1}. {entry}")
+
+    # Choose entry to delete
+    entry_index = int(input("Enter the number of the entry you'd like to delete: ")) - 1
+    if 0 <= entry_index < len(entries):
+        entry_to_delete = entries[entry_index]
+        os.remove(entry_to_delete)
+        print(f"Entry '{entry_to_delete}' deleted successfully.")
+    else:
+        print("Invalid entry number.")
+
+
 def newEntry():
     create_files()
 
@@ -87,7 +105,7 @@ def readEntries():
 
 # Main program
 while True:
-    print("\n[1] Record entry\n[2] Dream statistics\n[3] Read entries")
+    print("\n[1] Record Entry\n[2] Dream Statistics\n[3] Read Entries\n[4] Delete An Entry")
     choice = input("Enter your choice (1/2/3): ")
 
     if choice == '1':
@@ -96,5 +114,7 @@ while True:
         dreamStatistics()
     elif choice == '3':
         readEntries()
+    elif choice == '4':
+        deleteEntry()
     else:
         print("Invalid choice. Please enter 1, 2, or 3.")
